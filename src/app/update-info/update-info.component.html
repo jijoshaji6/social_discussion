@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <h2 class="text-center">Edit Profile</h2>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 mt-5">
+      <form class="form-control" (ngSubmit)="updateProfile()">
+        <div class="mt-4">
+          <label for="email">Email</label>
+          <input class="form-control" type="email" id="email" [(ngModel)]="updatedUser.email" name="email" placeholder="Email" required>
+        </div>
+        <div>
+          <label class="mt-4" for="name">Username</label>
+          <input class="form-control" type="text" id="name" [(ngModel)]="updatedUser.username" name="username" placeholder="Username" required>
+        </div>
+        <div>
+          <label class="mt-4" for="image">Profile Picture</label>
+          <input class="form-control" type="file" id="image" name="image">
+        </div>
+        <div>
+          <button class="btn btn-outline-success mt-4 mb-4" type="submit">Update Profile</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

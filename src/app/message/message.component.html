@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <h2 class="text-center">Private Chat</h2>
+    <div *ngIf="!selectedUser" class="text-center">
+      <p>Select a user to start chat</p>
+    </div>
+    <div class="col-md-4">
+      <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action" *ngFor="let user of users" (click)="selectUser(user.key)">
+          {{ user.username }}
+        </button>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="container" *ngIf="selectedUser">
+        <h4 class="text-center">{{ selectedUser.username }}</h4>
+        <div class="text-center">
+          <div *ngFor="let message of messages">
+            <p>{{ message.senderName }}: {{ message.content }} ({{ message.timestamp | date: 'short' }})</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-6">
+            <div class="input-group">
+              <input type="text" placeholder="Type message" class="form-control" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()">
+              <button class="btn btn-outline-success" (click)="sendMessage()">Send</button>
+            </div>
+          </div>
+          <div class="col-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

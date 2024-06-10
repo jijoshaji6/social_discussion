@@ -1,0 +1,65 @@
+<div class="container" *ngIf="community">
+  <div class="row">
+    <h2 class="text-center">{{ community.name }}</h2>
+    <p class="text-center">{{ community.description }}</p>
+  </div>
+  <div class="row">
+    <div class="col-12 mb-3 mb-sm-0">
+      <div *ngIf="posts && posts.length">
+        <div class="card mt-3" *ngFor="let post of posts">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h5 class="card-title text-center">{{ post.content }}</h5>
+                <h6>Comments:</h6>
+                <div *ngFor="let comment of post.comments">
+                  <p class="card-text mt-2" *ngIf="comment.content">{{ comment.content }}</p>
+                  <p *ngIf="!comment.content">No comment available.</p>
+                </div>
+                <div class="col">
+                  <input class="form-control mt-3" type="text" placeholder="Add a comment" (keyup.enter)="onEnter(post.id, $event)">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex flex-column align-items-end">
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-outline-primary me-2" (click)="upvote(post.id, post)" [disabled]="post.hasUpvoted || post.hasDownvoted">Like</button>
+                    <span>{{ post.upvotes }}</span>
+                  </div>
+                  <div class="d-flex align-items-center mt-2">
+                    <button class="btn btn-outline-danger me-2" (click)="downvote(post.id, post)" [disabled]="post.hasUpvoted || post.hasDownvoted">Dislike</button>
+                    <span>{{ post.downvotes }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p *ngIf="posts && !posts.length">Loading posts...</p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <h4>Create New Post</h4>
+      <form (submit)="createPost()">
+        <div class="mb-3">
+          <textarea class="form-control" [(ngModel)]="newPostContent" name="newPostContent" placeholder="Write your post" required></textarea>
+          <div class="input-group mt-3">
+            <label class="form-label" for="link">Add links</label>
+            <input class="form-control ms-3 me-5" type="text" name="link" id="link">
+            <label class="form-label" for="image">Add image</label>
+            <input class="form-control ms-3 me-5" type="file" name="image" id="image">
+            <label class="form-label" for="video">Add video</label>
+            <input class="form-control ms-3 me-5" type="file" name="video" id="video">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-outline-success">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!community" class="text-center mt-5">
+  <p>Loading community details...</p>
+</div>

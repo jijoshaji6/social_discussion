@@ -1,0 +1,55 @@
+<div class="container mt-5 mb-5">
+  <div class="row">
+      <div class="col-md-6 d-flex align-items-center justify-content-center">
+          <h2 class="text-center">Create and Join Communities: Connect with Like-Minded People</h2>
+      </div>
+      <div class="col-md-6">
+          <img src="assets/community_page.png" alt="" style="height: 100%; width: 100%;">
+      </div>
+  </div>
+  <div class="row mt-5">
+      <div class="col-12 text-center">
+          <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Modal">Create community</button>
+          <div class="row">
+              <div class="col-md-3"></div>
+              <div class="col-md-6">
+                  <input type="text" class="form-control mt-4" placeholder="Search communities" [(ngModel)]="searchQuery" (input)="filterCommunities()">
+              </div>
+              <div class="col-md-3"></div>
+          </div>
+      </div>
+      <div class="col-12 mt-5">
+          <div class="card mt-4" *ngFor="let community of filteredCommunities">
+              <h5 class="card-header">{{ community.name }}</h5>
+              <div class="card-body">
+                  <p class="card-text">{{ community.description }}</p>
+                  <a class="btn btn-outline-primary" [routerLink]="['/community_page', community.key]">View</a>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="ModalLabel">Create Community</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form (ngSubmit)="createCommunity()">
+                      <div>
+                          <label for="name" class="form-label">Community Name</label>
+                          <input type="text" name="name" id="name" class="form-control" [(ngModel)]="newCommunity.name" required>
+                      </div>
+                      <div>
+                          <label for="desc" class="form-label">Description</label>
+                          <input type="text" name="desc" id="desc" class="form-control" [(ngModel)]="newCommunity.description" required>
+                      </div>          
+                      <button type="submit" class="btn btn-outline-primary mt-3" data-bs-dismiss="modal">Create</button>
+                  </form>    
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <h2 class="text-center">User Management</h2>
+    <div class="col-12 mt-4">
+      <table class="table text-center ">
+        <tr>
+          <th>ID</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        <tr *ngFor="let user of users" class="mt-4">
+          <td>{{ user.id }}</td>
+          <td *ngIf="!isEditing(user)">{{ user.username }}</td>
+          <td *ngIf="isEditing(user)">
+            <input class="form-control" type="text" [ngModel]="selectedUser?.username" (ngModelChange)="selectedUser && (selectedUser.username = $event)">
+          </td>
+          <td *ngIf="!isEditing(user)">{{ user.email }}</td>
+          <td *ngIf="isEditing(user)">
+            <input class="form-control" type="email" [ngModel]="selectedUser?.email" (ngModelChange)="selectedUser && (selectedUser.email = $event)">
+          </td>
+          <td>{{ user.deactivated ? 'Deactivated' : 'Active' }}</td>
+          <td>
+            <button class="btn btn-outline-success me-3 ps-3 pe-3" *ngIf="!isEditing(user)" (click)="editUser(user)">Edit</button>
+            <button class="btn btn-outline-success me-3 ps-3 pe-3" *ngIf="isEditing(user)" (click)="updateUser(user)">Update</button>
+            <button class="btn btn-outline-success me-3 ps-3 pe-3" *ngIf="isEditing(user)" (click)="cancelEdit()">Cancel</button>
+            <button class="btn btn-outline-danger me-3 ps-3 pe-3" (click)="deleteUser(user.id)">Delete</button>
+            <button class="btn ps-3 pe-3" [class.btn-outline-danger]="!user.deactivated" [class.btn-outline-success]="user.deactivated" (click)="toggleUser(user.id)">{{ user.deactivated ? 'Activate' : 'Deactivate' }}</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
